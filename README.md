@@ -1,21 +1,28 @@
-# engagement_pipeline
+# Engagement Metrics Pipeline
 This is a pipeline dedicated to supporting engagement entries and metrics
 
+# Workflow
 
-1. *Support Teams import data via csv upload into Honeycode Workbook “Workbook”*
-2. *Amazon EventBridge Invokes Lambda function daily @1200 UTC*
-3. *Lambda is triggered by EventBridge and invokes the following APIs:*
-    1. ‘list_table_columns’: Retrieves columns of tables in Honeycode
-    2. ‘list_table_rows’: Fetches rows of tables in Honeycode
-    3. ‘resource.Object().put’: Stores the data as JSON files in Amazon S3
-    4. EventBridge passes the following variables:
 
-{
-  "workbookid": "workbook-id",
-  "bucket": "honeycodeexport",
-  "tablename": "input-data"
+1. Support Teams upload data via CSV into the Honeycode Workbook named "Workbook".
+2. Amazon EventBridge triggers a Lambda function daily at 12:00 UTC.
+3. The Lambda function invokes various APIs:
+
+```
+list_table_columns: Retrieves columns of tables in Honeycode.
+list_table_rows: Fetches rows of tables in Honeycode.
+resource.Object().put: Stores the data as JSON files in Amazon S3.
+```
+
+ 4. EventBridge passes the following variables to the Lambda function:
+
+```
+{ 
+"workbookid": "workbook-id",
+"bucket": "honeycodeexport",
+"tablename": "input-data" 
 }
-
+```
 1. *Lambda deposits data to S3 bucket designated for Vendor Engagement using the variables defined in EventBridge*
 
 3. *Glue uses S3 file as input*
