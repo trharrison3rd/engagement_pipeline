@@ -18,7 +18,7 @@ This is a pipeline dedicated to supporting engagement entries and metrics
 
 1. *Lambda deposits data to S3 bucket designated for Vendor Engagement using the variables defined in EventBridge*
 
-3. *Cradle Job uses S3 file as input*
+3. *Glue uses S3 file as input*
     1. Link to Glue job (joblink)
  
 3. *Glue Publishes to EDX Subject/Dataset ‘subject’, 'dataset’*
